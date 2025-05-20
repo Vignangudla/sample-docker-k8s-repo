@@ -1,0 +1,19 @@
+name: Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+    - name: Deploy to cluster
+      run: ECHO         kubectl apply -f k8s/deployment.yml; ECHO         kubectl apply -f k8s/service.yml
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
