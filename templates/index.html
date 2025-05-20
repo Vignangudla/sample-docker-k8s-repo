@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Repo Data</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        pre { background: #f4f4f4; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Repository Data: {{ data.repository.name }}</h1>
+    <h2>Details</h2>
+    <p><strong>Description:</strong> {{ data.repository.description }}</p>
+    <p><strong>Language:</strong> {{ data.repository.language }}</p>
+    <p><strong>Topics:</strong> {{ data.repository.topics }}</p>
+    <p><strong>Visibility:</strong> {{ data.repository.visibility }}</p>
+
+    <h2>Files</h2>
+    {% for file in data.files %}
+        <pre>{{ file | tojson(indent=2) }}</pre>
+    {% endfor %}
+
+    <h2>Commits</h2>
+    {% for commit in data.commits %}
+        <p>{{ commit.author }}: {{ commit.message }} ({{ commit.timestamp }})</p>
+    {% endfor %}
+
+    <h2>Branches</h2>
+    <ul>
+    {% for branch in data.branches %}
+        <li>{{ branch }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Tags</h2>
+    <ul>
+    {% for tag in data.tags %}
+        <li>{{ tag }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Contributors</h2>
+    <ul>
+    {% for contributor in data.contributors %}
+        <li>{{ contributor }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Issues</h2>
+    <ul>
+    {% for issue in data.issues %}
+        <li>{{ issue.title }} ({{ issue.state }})</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Pull Requests</h2>
+    <ul>
+    {% for pr in data.pulls %}
+        <li>{{ pr.title }} ({{ pr.state }})</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Workflows</h2>
+    {% for workflow in data.workflows %}
+        <pre>{{ workflow | tojson(indent=2) }}</pre>
+    {% endfor %}
+</body>
+</html>
